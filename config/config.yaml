@@ -1,0 +1,8 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  AWS_REGION: us-east-1
+  BUCKET_NAME: obesity-prediction-data
+  S3_OBJECT_KEY: Obesity prediction.csv
+  root_dir: artifacts/data_ingestion
+  LOCAL_DOWNLOAD_FILE: artifacts/data_ingestion/Obesity_prediction.csv  # ✅ Add this
