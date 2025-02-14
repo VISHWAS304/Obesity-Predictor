@@ -1,7 +1,7 @@
 from ObesityPredictor.constants import *
 import os
 from ObesityPredictor.utils.common import read_yaml, create_directories,save_json
-from ObesityPredictor.entity.config_entity import (DataIngestionConfig)
+from ObesityPredictor.entity.config_entity import (DataIngestionConfig,DataCleaningEncodingConfig,ModelTrainingConfig,ModelInferenceConfig)
 
 
 class ConfigurationManager:
@@ -33,3 +33,23 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
+    def get_data_cleaning_encoding_config(self) -> DataCleaningEncodingConfig:
+        config = self.config.data_cleaning_encoding
+        return DataCleaningEncodingConfig(
+            input_file=Path(config.input_file),
+            output_file=Path(config.output_file)
+        )
+    
+    def get_model_training_config(self) -> ModelTrainingConfig:
+        config = self.config["model_training"]
+        return ModelTrainingConfig(
+            input_file=Path(config["input_file"]),
+            models_dir=Path(config["models_dir"]),
+            params=self.params
+        )
+    def get_model_inference_config(self) -> ModelInferenceConfig:
+        config = self.config["model_inference"]
+        return ModelInferenceConfig(
+            models_dir=Path(config["models_dir"])
+        )

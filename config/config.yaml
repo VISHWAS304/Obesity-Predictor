@@ -6,3 +6,14 @@ data_ingestion:
   S3_OBJECT_KEY: Obesity prediction.csv
   root_dir: artifacts/data_ingestion
   LOCAL_DOWNLOAD_FILE: artifacts/data_ingestion/Obesity_prediction.csv  # ✅ Add this
+
+data_cleaning_encoding:
+  input_file: artifacts/data_ingestion/Obesity_prediction.csv  # ✅ The ingested file is used as input
+  output_file: artifacts/data_cleaning_encoded/cleaned_encoded_data.csv  # ✅ Save cleaned & encoded data here
+
+model_training:
+  input_file: artifacts/data_cleaning_encoded/cleaned_encoded_data.csv  # ✅ Path to cleaned dataset
+  models_dir: models  # ✅ Directory to save trained models
+
+model_inference:
+  models_dir: models

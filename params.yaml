@@ -1,1 +1,18 @@
-key: val
+train_test_split:
+  test_size: 0.2  # 20% of data will be used for testing
+  random_state: 42  # Ensures reproducibility
+  stratify: True  # Ensures equal class distribution
+
+models:
+  logistic_regression:
+    solver: "liblinear"
+    max_iter: 1000
+
+  decision_tree:
+    criterion: "gini"
+    max_depth: 10
+    min_samples_split: 2
+
+inference_sample:
+  columns: ["Age", "Height", "BMI", "FCVC", "NCP", "CH2O", "FAF", "TUE", "Gender_Male", "family_history_yes", "FAVC_yes", "CAEC_Sometimes", "SMOKE_yes", "CALC_Sometimes"]
+  values: [25, 1.75, 22.0, 2, 3, 2.0, 1, 0, 1, 0, 0, 1, 0, 1]
