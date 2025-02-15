@@ -4,7 +4,7 @@ import pickle
 import json
 from pathlib import Path
 
-# 📌 Load the saved feature names and models
+# 📌 Load Model Paths
 FEATURES_PATH = Path("config/feature_names.json")
 MODEL_PATHS = {
     "Logistic Regression": Path("models/logistic_regression/model.pkl"),
@@ -20,89 +20,75 @@ OBESITY_CLASS_MAPPING = {
     5: "Obesity Type III 🚨"
 }
 
-# 🌟 Streamlit UI Configuration
+# 🌟 Streamlit UI Configuration (Wide layout to reduce scrolling)
 st.set_page_config(
-    page_title="Future Obesity Level Predictor",
+    page_title="Obesity Predictor",
     page_icon="🍏",
     layout="wide",
 )
 
-# 🌈 Background Styling
+# 🌈 Custom Styling for a **Beautiful, Scroll-Free UI**
 st.markdown(
     """
     <style>
-        body {
-            background-color: #f5f5f5;
-            font-family: 'Arial', sans-serif;
-        }
-        .title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #4CAF50;
-            text-align: center;
-        }
-        .subtext {
-            font-size: 20px;
-            text-align: center;
-            color: gray;
-        }
-        .stButton>button {
-            background-color: #4CAF50;
-            color: white;
-            font-size: 18px;
-            border-radius: 10px;
-            width: 100%;
-        }
-        .stButton>button:hover {
-            background-color: #45a049;
-        }
+        body { font-family: 'Arial', sans-serif; }
+        .title { font-size: 36px; font-weight: bold; color: #2c3e50; text-align: center; }
+        .subtext { font-size: 20px; text-align: center; color: gray; }
+        .stButton>button { background-color: #2c3e50; color: white; font-size: 18px; border-radius: 8px; width: 100%; }
+        .stButton>button:hover { background-color: #34495e; }
+        .sidebar .sidebar-content { background-color: #ecf0f1; }
+        .stRadio { font-size: 16px; }
+        .stTabs { font-size: 18px; }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 📌 Header Section
-col1, col2, col3 = st.columns([1, 5, 1])
-with col2:
-    st.image("images/logo.png", width=80)  # Small logo
+# 📌 Header Section (Centered)
 st.markdown("<div class='title'>Obesity Level Predictor 🍏</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtext'>Predict your future obesity level based on your lifestyle habits.</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtext'>Predict your obesity level based on your lifestyle habits.</div>", unsafe_allow_html=True)
 
-st.markdown("---")  # Divider
-
-# 🎛️ Sidebar for Model Selection
+# 🎛️ **Sidebar for Model Selection**
 st.sidebar.image("images/obesity.png", use_container_width=True)
 st.sidebar.header("⚙️ Model Selection")
 model_choice = st.sidebar.radio("Select a model:", ("Logistic Regression", "Decision Tree"))
 
-# 📋 User Inputs
-st.subheader("📝 Enter Your Details")
-st.markdown("#### Fill in the details below to predict your obesity level.")
+# 📋 **Inputs Organized into Tabs to Reduce Clutter**
+tabs = st.tabs(["🏠 Basic Info", "🍽️ Diet & Activity", "🚗 Lifestyle"])
 
-col1, col2 = st.columns(2)
-with col1:
-    gender = st.selectbox("🚻 Gender", ["Male", "Female"])
-    age = st.number_input("📅 Age", min_value=10, max_value=100, step=1)
-    height = st.number_input("📏 Height (m)", min_value=1.0, max_value=2.5, step=0.01)
-    weight = st.number_input("⚖️ Weight (kg)", min_value=20, max_value=200, step=1)
-    family_history = st.selectbox("👨‍👩‍👧‍👦 Family History of Overweight?", ["Yes", "No"])
-    favc = st.selectbox("🍔 High Caloric Food Consumption?", ["Yes", "No"])
-    fcvc = st.selectbox("🥦 Vegetable Consumption?", ["Rarely", "Sometimes", "Frequently"])
-    ncp = st.number_input("🍽️ Number of Main Meals per Day", min_value=1, max_value=6, step=1)
+with tabs[0]:  # Basic Info
+    col1, col2 = st.columns(2)
+    with col1:
+        gender = st.selectbox("🚻 Gender", ["Male", "Female"])
+        age = st.number_input("📅 Age", min_value=10, max_value=100, step=1)
+        height = st.number_input("📏 Height (m)", min_value=1.0, max_value=2.5, step=0.01)
+    with col2:
+        weight = st.number_input("⚖️ Weight (kg)", min_value=20, max_value=200, step=1)
+        family_history = st.selectbox("👨‍👩‍👧‍👦 Family History of Overweight?", ["Yes", "No"])
+        favc = st.selectbox("🍔 High Caloric Food Consumption?", ["Yes", "No"])
 
-with col2:
-    caec = st.selectbox("🍪 Eating Between Meals?", ["No", "Sometimes", "Frequently", "Always"])
-    smoke = st.selectbox("🚬 Do You Smoke?", ["Yes", "No"])
-    ch2o = st.number_input("💧 Water Consumption (Liters per day)", min_value=0.5, max_value=5.0, step=0.1)
-    scc = st.selectbox("📊 Do You Monitor Calories?", ["Yes", "No"])
-    faf = st.selectbox("🏋️ Physical Activity Frequency", ["None", "Low", "Moderate", "High"])
-    tue = st.number_input("📱 Time Using Technology (Hours per day)", min_value=0, max_value=24, step=1)
-    calc = st.selectbox("🍷 Alcohol Consumption?", ["Never", "Sometimes", "Frequently", "Always"])
-    mtrans = st.selectbox("🚗 Mode of Transportation", ["Walking", "Bike", "Public Transport", "Car", "Motorbike"])
+with tabs[1]:  # Diet & Activity
+    col1, col2 = st.columns(2)
+    with col1:
+        fcvc = st.selectbox("🥦 Vegetable Consumption?", ["Rarely", "Sometimes", "Frequently"])
+        ncp = st.number_input("🍽️ Number of Meals Per Day", min_value=1, max_value=6, step=1)
+        ch2o = st.number_input("💧 Water Intake (L/day)", min_value=0.5, max_value=5.0, step=0.1)
+    with col2:
+        faf = st.selectbox("🏋️ Physical Activity", ["None", "Low", "Moderate", "High"])
+        tue = st.number_input("📱 Time Using Technology (hrs/day)", min_value=0, max_value=24, step=1)
+        caec = st.selectbox("🍪 Eating Between Meals?", ["No", "Sometimes", "Frequently", "Always"])
+
+with tabs[2]:  # Lifestyle
+    col1, col2 = st.columns(2)
+    with col1:
+        smoke = st.selectbox("🚬 Do You Smoke?", ["Yes", "No"])
+        scc = st.selectbox("📊 Do You Monitor Calories?", ["Yes", "No"])
+    with col2:
+        calc = st.selectbox("🍷 Alcohol Consumption?", ["Never", "Sometimes", "Frequently", "Always"])
+        mtrans = st.selectbox("🚗 Mode of Transportation", ["Walking", "Bike", "Public Transport", "Car", "Motorbike"])
 
 # **🔹 Function to Align Features**
 def align_features(input_data):
-    """Ensure user input data matches training feature set."""
     try:
         with open(FEATURES_PATH, "r") as f:
             feature_names = json.load(f)
@@ -142,7 +128,7 @@ aligned_input = align_features(input_df)
 if st.button("🔍 Predict Obesity Level"):
     if aligned_input is not None:
         try:
-            aligned_input.fillna(0, inplace=True)  # ✅ Replace NaN values with 0 (Modify here)
+            aligned_input.fillna(0, inplace=True)
 
             with open(MODEL_PATHS[model_choice], "rb") as f:
                 model = pickle.load(f)
@@ -150,15 +136,12 @@ if st.button("🔍 Predict Obesity Level"):
             prediction = model.predict(aligned_input)[0]
             obesity_label = OBESITY_CLASS_MAPPING.get(prediction, "Unknown")
 
-            st.success(f"✅ Predicted Future Obesity Level: **{obesity_label}**")
+            st.success(f"✅ **Predicted Future Obesity Level: {obesity_label}**")
         except Exception as e:
             st.error(f"Prediction Error: {str(e)}")
 
 # 🏥 **Health Advisory**
-st.info(
-    "⚠️ **This is just a guideline.** Ideal weight varies based on factors like muscle mass, body frame, and age. "
-    "Always consult a healthcare professional for **personalized advice**."
-)
+st.info("⚠️ **This is just a guideline.** Consult a healthcare professional for personalized advice.")
 
 # 📌 **Footer with Motivational Image**
 st.markdown("---")
