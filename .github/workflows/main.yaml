@@ -88,7 +88,8 @@ jobs:
          
       - name: Stop and remove container if running
         run: |
-          docker ps -q --filter "name=ObesityPredictor" | grep -q . && docker stop ObesityPredictor && docker rm -fv ObesityPredictor
+          docker ps -q --filter "name=ObesityPredictor" | xargs -r docker stop
+          docker ps -a -q --filter "name=ObesityPredictor" | xargs -r docker rm -fv
        
       - name: Run Docker Image to serve users
         run: |
