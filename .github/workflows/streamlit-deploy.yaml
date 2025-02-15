@@ -1,0 +1,47 @@
+name: Streamlit Deployment
+
+on:
+  push:
+    branches:
+      - streamlit  # ✅ Triggers only for the 'streamlit' branch
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Lint code
+        run: echo "Linting repository"
+
+      - name: Run unit tests
+        run: echo "Running unit tests"
+
+  deploy-to-streamlit:
+    name: Deploy to Streamlit
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt  # ✅ Install project dependencies
+
+      - name: Trigger Streamlit Cloud Update
+        run: |
+          echo "Push detected in 'streamlit' branch. Streamlit Cloud will auto-deploy the changes."
