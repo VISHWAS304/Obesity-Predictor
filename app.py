@@ -20,43 +20,54 @@ OBESITY_CLASS_MAPPING = {
     5: "Obesity Type III 🚨"
 }
 
-# 🌟 Streamlit UI Configuration (Wide layout to reduce scrolling)
+# 🌟 Streamlit UI Configuration
 st.set_page_config(
     page_title="Obesity Predictor",
-    page_icon="🍏",
+    page_icon="🩺",
     layout="wide",
 )
 
-# 🌈 Custom Styling for a **Beautiful, Scroll-Free UI**
+# 🌈 **Custom Styling - Glassmorphism Neon Theme**
 st.markdown(
     """
     <style>
-        body { font-family: 'Arial', sans-serif; }
-        .title { font-size: 36px; font-weight: bold; color: #2c3e50; text-align: center; }
-        .subtext { font-size: 20px; text-align: center; color: gray; }
-        .stButton>button { background-color: #2c3e50; color: white; font-size: 18px; border-radius: 8px; width: 100%; }
-        .stButton>button:hover { background-color: #34495e; }
-        .sidebar .sidebar-content { background-color: #ecf0f1; }
-        .stRadio { font-size: 16px; }
+        body { font-family: 'Poppins', sans-serif; background-color: #121212; }
+        .title { font-size: 40px; font-weight: bold; color: #76c7c0; text-align: center; }
+        .subtext { font-size: 18px; text-align: center; color: #B6BBC4; }
+        .stButton>button {
+            background: linear-gradient(45deg, #76c7c0, #6D67E4);
+            color: white; font-size: 18px; border-radius: 10px; width: 100%;
+            transition: 0.3s ease-in-out; border: none;
+        }
+        .stButton>button:hover { background: linear-gradient(45deg, #6D67E4, #76c7c0); }
+        .sidebar .sidebar-content { background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 20px; }
+        .stRadio { font-size: 16px; color: white; }
         .stTabs { font-size: 18px; }
+        .card {
+            background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px;
+            box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px); color: white;
+        }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 📌 Header Section (Centered)
-st.markdown("<div class='title'>Obesity Level Predictor 🍏</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtext'>Predict your obesity level based on your lifestyle habits.</div>", unsafe_allow_html=True)
+# 📌 **Header Section (Centered)**
+st.markdown("<div class='title'>🔍 Obesity Level Predictor</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtext'>Predict your obesity level based on your lifestyle choices.</div>", unsafe_allow_html=True)
+st.markdown("---")
 
 # 🎛️ **Sidebar for Model Selection**
 st.sidebar.image("images/obesity.png", use_container_width=True)
-st.sidebar.header("⚙️ Model Selection")
-model_choice = st.sidebar.radio("Select a model:", ("Logistic Regression", "Decision Tree"))
+st.sidebar.header("⚙️ Select Prediction Model")
+model_choice = st.sidebar.radio("Choose a Model:", ("Logistic Regression", "Decision Tree"))
 
-# 📋 **Inputs Organized into Tabs to Reduce Clutter**
+# 📋 **Inputs Organized into Tabs**
 tabs = st.tabs(["🏠 Basic Info", "🍽️ Diet & Activity", "🚗 Lifestyle"])
 
 with tabs[0]:  # Basic Info
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         gender = st.selectbox("🚻 Gender", ["Male", "Female"])
@@ -66,8 +77,10 @@ with tabs[0]:  # Basic Info
         weight = st.number_input("⚖️ Weight (kg)", min_value=20, max_value=200, step=1)
         family_history = st.selectbox("👨‍👩‍👧‍👦 Family History of Overweight?", ["Yes", "No"])
         favc = st.selectbox("🍔 High Caloric Food Consumption?", ["Yes", "No"])
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with tabs[1]:  # Diet & Activity
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         fcvc = st.selectbox("🥦 Vegetable Consumption?", ["Rarely", "Sometimes", "Frequently"])
@@ -77,8 +90,10 @@ with tabs[1]:  # Diet & Activity
         faf = st.selectbox("🏋️ Physical Activity", ["None", "Low", "Moderate", "High"])
         tue = st.number_input("📱 Time Using Technology (hrs/day)", min_value=0, max_value=24, step=1)
         caec = st.selectbox("🍪 Eating Between Meals?", ["No", "Sometimes", "Frequently", "Always"])
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with tabs[2]:  # Lifestyle
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         smoke = st.selectbox("🚬 Do You Smoke?", ["Yes", "No"])
@@ -86,27 +101,7 @@ with tabs[2]:  # Lifestyle
     with col2:
         calc = st.selectbox("🍷 Alcohol Consumption?", ["Never", "Sometimes", "Frequently", "Always"])
         mtrans = st.selectbox("🚗 Mode of Transportation", ["Walking", "Bike", "Public Transport", "Car", "Motorbike"])
-
-# **🔹 Function to Align Features**
-def align_features(input_data):
-    try:
-        with open(FEATURES_PATH, "r") as f:
-            feature_names = json.load(f)
-
-        aligned_data = pd.DataFrame(columns=feature_names)
-
-        for col in input_data.columns:
-            if col in feature_names:
-                aligned_data[col] = input_data[col]
-
-        for feature in feature_names:
-            if feature not in aligned_data.columns:
-                aligned_data[feature] = 0
-
-        return aligned_data
-    except Exception as e:
-        st.error(f"Feature alignment error: {str(e)}")
-        return None
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # **🔹 Prepare Data for Prediction**
 user_data = {
@@ -123,22 +118,18 @@ user_data = {
 }
 
 input_df = pd.DataFrame([user_data])
-aligned_input = align_features(input_df)
 
 if st.button("🔍 Predict Obesity Level"):
-    if aligned_input is not None:
-        try:
-            aligned_input.fillna(0, inplace=True)
+    try:
+        with open(MODEL_PATHS[model_choice], "rb") as f:
+            model = pickle.load(f)
 
-            with open(MODEL_PATHS[model_choice], "rb") as f:
-                model = pickle.load(f)
+        prediction = model.predict(input_df)[0]
+        obesity_label = OBESITY_CLASS_MAPPING.get(prediction, "Unknown")
 
-            prediction = model.predict(aligned_input)[0]
-            obesity_label = OBESITY_CLASS_MAPPING.get(prediction, "Unknown")
-
-            st.success(f"✅ **Predicted Future Obesity Level: {obesity_label}**")
-        except Exception as e:
-            st.error(f"Prediction Error: {str(e)}")
+        st.success(f"✅ **Predicted Obesity Level: {obesity_label}**")
+    except Exception as e:
+        st.error(f"Prediction Error: {str(e)}")
 
 # 🏥 **Health Advisory**
 st.info("⚠️ **This is just a guideline.** Consult a healthcare professional for personalized advice.")
@@ -146,4 +137,4 @@ st.info("⚠️ **This is just a guideline.** Consult a healthcare professional 
 # 📌 **Footer with Motivational Image**
 st.markdown("---")
 st.image("images/healthy.jpg", use_container_width=True)
-st.markdown("<div style='text-align: center; font-size: 18px;'>🌟 Maintain a healthy lifestyle! 🌱💪</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; font-size: 18px; color: #76c7c0;'>🌟 Stay Active & Healthy! 💪</div>", unsafe_allow_html=True)
