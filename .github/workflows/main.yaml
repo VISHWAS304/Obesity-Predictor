@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: workflow
 
 on:
   push:
@@ -29,15 +29,13 @@ jobs:
     name: Continuous Delivery
     needs: integration
     runs-on: ubuntu-latest
-    outputs:
-      image_uri: ${{ steps.build-image.outputs.image_uri }}  # ✅ Passing Image URI to next job
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Install Utilities
         run: |
-          sudo apt-get update -y
+          sudo apt-get update
           sudo apt-get install -y jq unzip
 
       - name: Configure AWS credentials
@@ -60,14 +58,12 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
-          echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT  # ✅ Correct Output
+          echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
   deploy-to-ecs:
     name: Continuous Deployment
     needs: build-and-push-ecr-image
     runs-on: self-hosted
-    env:
-      IMAGE_URI: ${{ needs.build-and-push-ecr-image.outputs.image_uri }}  # ✅ Using correct output from previous job
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -84,20 +80,22 @@ jobs:
 
       - name: Pull latest Docker image
         run: |
-          docker pull $IMAGE_URI
+          docker pull ${{ env.IMAGE_URI }}
 
       - name: Stop and remove existing container (if running)
         run: |
-          docker ps -q --filter "name=obesity-predictor" | grep -q . && docker stop obesity-predictor && docker rm -fv obesity-predictor || echo "No existing container to remove"
+          docker ps -q --filter "name=obesity-predictor-container" | grep -q . && \
+          docker stop obesity-predictor-container && \
+          docker rm -fv obesity-predictor-container || echo "No existing container to remove"
 
-      - name: Run new container
+      - name: Run new container for Streamlit app
         run: |
-          docker run --rm -d -p 8501:8501 --name=obesity-predictor \
+          docker run -p 8501:8501 --name obesity-predictor-container \
           -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
           -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
           -e AWS_REGION=${{ secrets.AWS_REGION }} \
-          $IMAGE_URI
+          ${{ env.IMAGE_URI }}
 
       - name: Clean up old Docker images
         run: |
-          docker system prune -af
+          docker system prune -f
