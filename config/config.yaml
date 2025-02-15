@@ -5,15 +5,26 @@ data_ingestion:
   BUCKET_NAME: obesity-prediction-data
   S3_OBJECT_KEY: Obesity prediction.csv
   root_dir: artifacts/data_ingestion
-  LOCAL_DOWNLOAD_FILE: artifacts/data_ingestion/Obesity_prediction.csv  # ✅ Add this
+  LOCAL_DOWNLOAD_FILE: artifacts/data_ingestion/Obesity_prediction.csv  # ✅ The ingested file is saved here
 
 data_cleaning_encoding:
   input_file: artifacts/data_ingestion/Obesity_prediction.csv  # ✅ The ingested file is used as input
   output_file: artifacts/data_cleaning_encoded/cleaned_encoded_data.csv  # ✅ Save cleaned & encoded data here
 
 model_training:
-  input_file: artifacts/data_cleaning_encoded/cleaned_encoded_data.csv  # ✅ Path to cleaned dataset
-  models_dir: models  # ✅ Directory to save trained models
+  input_file: artifacts/data_cleaning_encoded/cleaned_encoded_data.csv
+  models_dir: models
+  logistic_regression_model: models/logistic_regression/model.pkl  # ✅ Corrected path
+  decision_tree_model: models/decision_tree/model.pkl  # ✅ Corrected path
 
 model_inference:
   models_dir: models
+  logistic_regression_model: models/logistic_regression/model.pkl  # ✅ Corrected path
+  decision_tree_model: models/decision_tree/model.pkl  # ✅ Corrected path
+
+model_evaluation:
+  test_data: artifacts/data_cleaning_encoded/cleaned_encoded_data.csv
+  mlflow_tracking_uri: "https://dagshub.com/VISHWAS304/Obesity-Predictor.mlflow"
+
+mlflow:
+  uri: "https://dagshub.com/VISHWAS304/Obesity-Predictor.mlflow"  # ✅ DagsHub MLflow Tracking URI

@@ -3,6 +3,7 @@ from ObesityPredictor.config.configuration import ConfigurationManager
 from ObesityPredictor.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 from ObesityPredictor.pipeline.stage_02_data_cleaning_encoding import DataCleaningEncodingPipeline
 from ObesityPredictor.pipeline.stage_03_model_training import ModelTrainingPipeline
+from ObesityPredictor.pipeline.stage_05_model_evaluation import ModelEvaluationPipeline
 from ObesityPredictor.pipeline.stage_04_model_inference import ModelInferencePipeline
 import pandas as pd
 from ObesityPredictor.utils.common import remove_pycache
@@ -10,43 +11,36 @@ from ObesityPredictor.utils.common import remove_pycache
 # Remove cached files before running
 remove_pycache()
 
-# **Data Ingestion Stage**
-STAGE_NAME = "Data Ingestion Stage"
-try:
-    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-    data_ingestion = DataIngestionTrainingPipeline()
-    data_ingestion.main()
-    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-except Exception as e:
-    logger.exception(e)
-    raise e
+def run_pipeline(stage_name, pipeline_class):
+    """Generic function to execute a pipeline stage with logging."""
+    try:
+        logger.info(f">>>>>> Stage {stage_name} started <<<<<<")
+        pipeline = pipeline_class()
+        
+        # Check if pipeline has `run()`, else use `main()`
+        if hasattr(pipeline, "run"):
+            pipeline.run()  # ✅ Call `run()` if it exists
+        elif hasattr(pipeline, "main"):
+            pipeline.main()  # ✅ Call `main()` if it exists
+        else:
+            raise AttributeError(f"{pipeline_class.__name__} has neither `run()` nor `main()` method.")
+        
+        logger.info(f">>>>>> Stage {stage_name} completed <<<<<<\n\nx==========x")
+    except Exception as e:
+        logger.exception(e)
+        raise e
 
-# **Data Cleaning and Encoding Stage**
-STAGE_NAME = "Data Cleaning and Encoding Stage"
-try:
-    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-    data_cleaning = DataCleaningEncodingPipeline()
-    data_cleaning.main()
-    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-except Exception as e:
-    logger.exception(e)
-    raise e
-
-# **Model Training Stage**
-STAGE_NAME = "Model Training Stage"
-try:
-    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-    model_training = ModelTrainingPipeline()
-    model_training.main()
-    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-except Exception as e:
-    logger.exception(e)
-    raise e
+# **Execute Data Pipeline Stages**
+run_pipeline("Data Ingestion Stage", DataIngestionTrainingPipeline)
+run_pipeline("Data Cleaning and Encoding Stage", DataCleaningEncodingPipeline)
+run_pipeline("Model Training Stage", ModelTrainingPipeline)
+run_pipeline("Model Evaluation Stage", ModelEvaluationPipeline)
 
 # **Model Inference Stage**
 STAGE_NAME = "Model Inference Stage"
 try:
-    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+    logger.info(f">>>>>> Stage {STAGE_NAME} started <<<<<<")
+
     inference_pipeline = ModelInferencePipeline()
 
     # Retrieve parameters from ModelInferenceConfig
@@ -58,7 +52,7 @@ try:
     predictions = inference_pipeline.run(sample_input)  # ✅ Correct method call
     logger.info(f"Inference Results: {predictions}")
 
-    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+    logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
     logger.exception(e)
     raise e

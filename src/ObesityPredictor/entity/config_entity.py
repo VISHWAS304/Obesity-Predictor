@@ -24,3 +24,13 @@ class ModelTrainingConfig:
 @dataclass(frozen=True)
 class ModelInferenceConfig:
     models_dir: Path  # Directory where trained models are saved
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    path_of_logistic_model: Path
+    path_of_decision_tree_model: Path
+    test_data_path: Path
+    mlflow_tracking_uri: str
+    all_params: dict
+
+

@@ -1,33 +1,17 @@
-# Data Ingestion
-boto3==1.36.18
-
-# Data Analysis and Visualization
-pandas==2.2.3
-numpy==2.0.2
-matplotlib==3.10.0
-seaborn==0.13.2
-
-# Model Training
-scipy==1.15.1
-tensorflow==2.18.0
-
-# Model Prediction
-
-# Model Tracking
+boto3>=1.36
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.10
+seaborn>=0.13
 dvc==3.59.0
 mlflow==2.20.1
-
-# Model Deployment
-Flask==3.1.0
-Flask-Cors  # (No version specified, add if needed)
-
-# Others /common
-python-box  # (No version specified, add if needed)
-pyYAML==6.0.2
-tqdm==4.67.1
-ensure  # (No version specified, add if needed)
-joblib==1.4.2
-types-PyYAML  # (No version specified, add if needed)
-notebook  # (No version specified, add if needed)
-
--e .
+Jinja2==3.1.2
+MarkupSafe==2.1.3
+streamlit>=1.30.0
+python-box
+pyYAML>=6.0.2
+tqdm>=4.67
+ensure
+joblib>=1.4
+types-PyYAML
+notebook
