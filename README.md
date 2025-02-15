@@ -1,8 +1,4 @@
-Here is the README.md in markdown format for easy copy-pasting:
 
-markdown
-Copy
-Edit
 # 🏥 Obesity Predictor 🍏  
 [![GitHub license](https://img.shields.io/github/license/vishwas304/Obesity-Predictor)](LICENSE)  
 [![GitHub stars](https://img.shields.io/github/stars/vishwas304/Obesity-Predictor)](https://github.com/vishwas304/Obesity-Predictor/stargazers)  
@@ -38,11 +34,6 @@ Edit
 ┣ 📜 Dockerfile # Docker Configuration
 ┣ 📜 requirements.txt # Dependencies
 ┣ 📜 README.md # Documentation
-
-yaml
-Copy
-Edit
-
 ---
 
 ## 🛠️ Tech Stack  
