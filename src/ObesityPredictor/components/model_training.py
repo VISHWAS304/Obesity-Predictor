@@ -42,7 +42,7 @@ class ModelTraining:
             logger.error(f"Error during data splitting: {str(e)}")
             raise e
 
-    def save_feature_names(self, feature_names, file_path="artifacts/models/feature_names.json"):
+    def save_feature_names(self, feature_names, file_path="config/feature_names.json"):
         """Save feature names used during training."""
         try:
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
