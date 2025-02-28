@@ -20,18 +20,25 @@
 - **Data Ingestion & Integration:**  
   - **AWS S3:** Stores original raw data for training and inference.  
   - **AWS Glue:** Executes ETL (Extract, Transform, Load) operations.
+
+Future Implementation:
   - <span style="color:green;">**Apache Kafka / Apache NiFi:** Future integration for real-time data streaming.</span>
   - <span style="color:green;">**Fivetran / Talend:** Automating data ingestion across multiple sources.</span>
 
 - **Data Storage & Warehousing:**  
   - **AWS RDS:** Serves as the structured database.
+ 
+  Future Implementation:
   - <span style="color:green;">**Delta Lake:** ACID-compliant data lake for scalable storage.</span>
 
-- **Data Versioning:**  
+- **Data Versioning:**
+  Future Implementation:
   - <span style="color:green;">**DVC (Data Version Control):** Future integration for tracking dataset changes alongside code.</span>
 
 - **Data Labeling & Annotation:**  
   - **Manual process for now.**
+
+    Future Implementation:
   - <span style="color:green;">**Labelbox / SuperAnnotate:** Future enhancement for efficient labeling workflows.</span>
 
 ---
@@ -39,15 +46,21 @@
 ### 2. Model Development & Experimentation
 - **Programming Language & Frameworks:**  
   - **Python (OOP & Modular Structure)**  
-  - **scikit-learn (Current ML models)**  
+  - **scikit-learn (Current ML models)**
+ 
+    Future Implementation:
   - <span style="color:green;">**TensorFlow / PyTorch:** Future integration for deep learning models.</span>
 
 - **Experiment Tracking:**  
-  - **Currently manual tracking.**
-  - <span style="color:green;">**MLflow / Weights & Biases (W&B) / Comet.ml:** Future tools for experiment tracking and model registry.</span>
+  - **MLflow**
+
+    Future Implementation:
+  - <span style="color:green;"> Weights & Biases (W&B) / Comet.ml:** Future tools for experiment tracking and model registry.</span>
 
 - **Reproducibility:**  
   - **Standardized code and dataset management.**
+ 
+    Future Implementation:
   - <span style="color:green;">**DVC integration planned to improve reproducibility.**</span>
 
 ---
@@ -55,11 +68,15 @@
 ### 3. Model Deployment & Serving
 - **Web Application Framework:**  
   - **Streamlit:** Provides UI and API endpoints for real-time predictions.
+ 
+    Future Implementation:
   - <span style="color:green;">**FastAPI / Flask:** Future alternative for production-grade API endpoints.</span>
 
 - **Containerization & Cloud Deployment:**  
   - **Docker:** Used to containerize the application.  
-  - **AWS EC2 & ECR:** Hosts Docker containers in a cloud environment.  
+  - **AWS EC2 & ECR:** Hosts Docker containers in a cloud environment.
+ 
+    Future Implementation: 
   - <span style="color:green;">**Kubernetes:** Future orchestration for containerized deployments.</span>
 
 - **CI/CD Pipelines:**  
