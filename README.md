@@ -54,23 +54,19 @@ Open your browser at http://localhost:8501.
 
 Using Docker
 Build the Docker Image:
-
-bash
-Copy
+```bash
 docker build -t obesity-predictor .
+```
 Run the Docker Container:
-
-bash
-Copy
+```bash
 docker run -p 8501:8501 obesity-predictor
+```
 Access the App:
+```bash
 Open your browser at http://localhost:8501.
+```
 
-
-
-
-
-
+```bash
 ## Roadmap
 
 - **Enhanced Models:** Integrate deep learning with TensorFlow or PyTorch.
