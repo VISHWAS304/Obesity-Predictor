@@ -8,147 +8,121 @@
 
 ## Overview
 
-**Obesity Predictor** is a machine learning-powered web application that predicts future obesity levels based on user lifestyle inputs. Built with Python, Streamlit, and AWS, this repository serves as both a research project and a study resource in Machine Learning and Generative AI.
+**Obesity Predictor** is a machine learning-powered web application that predicts future obesity levels based on user lifestyle inputs. This project is structured with modern MLOps practices in mind and is continuously evolving with enhanced tools and processes.
 
-*Note: While the current implementation leverages a selected set of tools and processes, the project is designed with a flexible framework. This allows for the integration of additional industry-standard MLOps tools and practices in future releases.*
+*Note: The repository includes both currently implemented tools and future planned tools, which are highlighted in green.*
 
 ---
 
-## MLOps Framework Overview
-
-A robust MLOps strategy ensures that machine learning models are accurate, reliable, scalable, and compliant. The framework is typically divided into the following key areas:
+## Tech Stack & Implementation
 
 ### 1. Data Management & Versioning
 - **Data Ingestion & Integration:**  
-  Processes for collecting, cleaning, and aggregating data from various sources.  
-  *Future tools: Apache Kafka, Apache NiFi, Fivetran, Talend*
+  - **AWS S3:** Stores original raw data for training and inference.  
+  - **AWS Glue:** Executes ETL (Extract, Transform, Load) operations.
+  - <span style="color:green;">**Apache Kafka / Apache NiFi:** Future integration for real-time data streaming.</span>
+  - <span style="color:green;">**Fivetran / Talend:** Automating data ingestion across multiple sources.</span>
+
+- **Data Storage & Warehousing:**  
+  - **AWS RDS:** Serves as the structured database.
+  - <span style="color:green;">**Delta Lake:** ACID-compliant data lake for scalable storage.</span>
 
 - **Data Versioning:**  
-  Tracking changes in datasets to ensure consistency and reproducibility.  
-  *Future tools: DVC (Data Version Control), Delta Lake*
+  - <span style="color:green;">**DVC (Data Version Control):** Future integration for tracking dataset changes alongside code.</span>
 
 - **Data Labeling & Annotation:**  
-  Organizing and preparing labeled data for supervised learning tasks.  
-  *Future tools: Labelbox, SuperAnnotate*
-
-- **Data Quality Assurance:**  
-  Techniques to ensure data is accurate, complete, and relevant.
+  - **Manual process for now.**
+  - <span style="color:green;">**Labelbox / SuperAnnotate:** Future enhancement for efficient labeling workflows.</span>
 
 ---
 
 ### 2. Model Development & Experimentation
-- **Model Training & Tuning:**  
-  Building models and optimizing hyperparameters.
+- **Programming Language & Frameworks:**  
+  - **Python (OOP & Modular Structure)**  
+  - **scikit-learn (Current ML models)**  
+  - <span style="color:green;">**TensorFlow / PyTorch:** Future integration for deep learning models.</span>
 
 - **Experiment Tracking:**  
-  Logging experiments, configurations, and outcomes to compare different model versions.  
-  *Future tools: MLflow, Weights & Biases (W&B), Comet.ml*
+  - **Currently manual tracking.**
+  - <span style="color:green;">**MLflow / Weights & Biases (W&B) / Comet.ml:** Future tools for experiment tracking and model registry.</span>
 
 - **Reproducibility:**  
-  Ensuring that experiments can be reliably repeated with the same results.
+  - **Standardized code and dataset management.**
+  - <span style="color:green;">**DVC integration planned to improve reproducibility.**</span>
 
 ---
 
 ### 3. Model Deployment & Serving
-- **Continuous Integration/Continuous Deployment (CI/CD):**  
-  Automating testing, integration, and deployment of ML models.
+- **Web Application Framework:**  
+  - **Streamlit:** Provides UI and API endpoints for real-time predictions.
+  - <span style="color:green;">**FastAPI / Flask:** Future alternative for production-grade API endpoints.</span>
 
-- **Model Packaging:**  
-  Containerization (e.g., Docker) and other techniques for bundling models for deployment.
+- **Containerization & Cloud Deployment:**  
+  - **Docker:** Used to containerize the application.  
+  - **AWS EC2 & ECR:** Hosts Docker containers in a cloud environment.  
+  - <span style="color:green;">**Kubernetes:** Future orchestration for containerized deployments.</span>
+
+- **CI/CD Pipelines:**  
+  - **Not yet implemented.**
+  - <span style="color:green;">**GitHub Actions / Jenkins / GitLab CI:** Future automation for testing and deployment.</span>
 
 - **Model Serving:**  
-  Deploying models to production environments via APIs or other serving mechanisms.  
-  *Future tools: TensorFlow Serving, TorchServe, FastAPI, Flask, AWS SageMaker, Google AI Platform, Azure ML*
+  - <span style="color:green;">**TensorFlow Serving / TorchServe:** Future enhancement for optimized model deployment.</span>
 
 ---
 
 ### 4. Monitoring & Management in Production
-- **Model Monitoring:**  
-  Continuously tracking model performance, including metrics like latency, throughput, and accuracy.
+- **Logging & Basic Monitoring:**  
+  - **Application-level logging in Streamlit.**
+  - <span style="color:green;">**ELK Stack (Elasticsearch, Logstash, Kibana) / Splunk:** Future robust logging and analytics.</span>
 
-- **Drift Detection:**  
-  Identifying shifts in data distribution or model performance (data drift and concept drift).  
-  *Future tools: Evidently AI, Alibi Detect*
+- **Performance Monitoring & Alerts:**  
+  - **Currently manual checks.**
+  - <span style="color:green;">**Prometheus / Grafana:** Future real-time monitoring and alerting.</span>
 
-- **Logging & Alerting:**  
-  Setting up logging for model predictions and automated alerts for anomalies or degradations in performance.  
-  *Future tools: ELK Stack (Elasticsearch, Logstash, Kibana), Splunk*
-
-- **Retraining & Continuous Learning:**  
-  Pipelines that trigger model retraining when performance drops or new data becomes available.
+- **Drift Detection & Model Retraining:**  
+  - **No drift detection implemented yet.**
+  - <span style="color:green;">**Evidently AI / Alibi Detect:** Future integration to track data and concept drift.</span>
 
 ---
 
 ### 5. Pipeline Orchestration & Automation
 - **Workflow Management:**  
-  Using orchestration tools to automate the ML pipeline.  
-  *Future tools: Apache Airflow, Kubeflow Pipelines*
+  - **Currently manual execution of scripts.**
+  - <span style="color:green;">**Apache Airflow / Kubeflow Pipelines:** Future automation of complex ML workflows.</span>
 
 - **Infrastructure as Code (IaC):**  
-  Managing infrastructure through code to ensure consistency and repeatability.  
-  *Future tools: Terraform, Ansible*
-
-- **Scalability & Resource Management:**  
-  Leveraging cloud platforms and container orchestration (e.g., Kubernetes) for scalable deployments.
+  - **Currently manually provisioned AWS services.**
+  - <span style="color:green;">**Terraform / Ansible:** Future automated infrastructure management.</span>
 
 ---
 
 ### 6. Collaboration & Governance
 - **Version Control:**  
-  Using tools (e.g., Git for code and DVC for data) to manage changes and collaborate effectively.
+  - **Git (GitHub) for code versioning.**
+  - <span style="color:green;">**DVC:** Future integration for dataset versioning.</span>
 
 - **Security & Compliance:**  
-  Implementing practices to ensure data privacy, secure model access, and regulatory compliance.  
-  *Future tools: HashiCorp Vault, data governance platforms like Collibra or Alation*
+  - **AWS IAM roles for access control.**
+  - <span style="color:green;">**HashiCorp Vault:** Future integration for secure secret management.</span>
 
-- **Model Explainability & Fairness:**  
-  Techniques to interpret model decisions and ensure that models do not propagate bias.
-
-- **Auditability & Governance:**  
-  Maintaining an audit trail of model changes, data lineage, and decision-making processes.  
-  *Future tools: MLflow Model Registry, Neptune.ai*
+- **Auditability & Model Governance:**  
+  - **Currently, tracking is manual.**
+  - <span style="color:green;">**MLflow Model Registry / Neptune.ai:** Future integration for audit trails and governance.</span>
 
 ---
 
-## Current Tech Stack
-
-For this project, the following tools and platforms are implemented:
-
-- **Programming Language:** Python  
-  - Utilizes Object-Oriented Programming (OOP) and Modular Coding  
-  - Streamlit for building both the API and the user interface
-
-- **Cloud Services (AWS Free Tier):**  
-  - **AWS S3:** Storage for raw data  
-  - **AWS Glue:** ETL operations  
-  - **AWS RDS:** Data warehousing  
-  - **AWS ECR:** Docker container storage  
-  - **AWS EC2:** Cloud deployment  
-  - **Streamlit Deployment:** Hosting on the free tier
-
-- **Containerization:**  
-  - Docker for building and deploying the application
-
-- **SQL & Generative AI:**  
-  - Incorporates SQL for data interactions along with LLM-based approaches for natural language queries
-
-*Future iterations may expand this tech stack to incorporate additional industry-standard tools as outlined in the MLOps framework above.*
-
----
-
-## Getting Started
+## Installation & Setup
 
 ### Prerequisites
-
 - **Python 3.7+**
 - **Docker**
-- **AWS Account** (for AWS S3, Glue, RDS, ECR, and EC2 services)
+- **AWS Account** (for AWS S3, Glue, RDS, ECR, and EC2)
 - **Git**
 
 ### Installation
 
 1. **Clone the Repository:**
-
    ```bash
    git clone https://github.com/VISHWAS304/Obesity-Predictor.git
    cd Obesity-Predictor
