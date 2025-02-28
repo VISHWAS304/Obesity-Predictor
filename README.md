@@ -9,10 +9,10 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Tech Stack & Implementation](#tech-stack--implementation)
 - [Installation & Setup](#installation--setup)
 - [Running the Application](#running-the-application)
 - [Roadmap](#roadmap)
+- [Tech Stack & Implementation](#tech-stack--implementation)
 - [Contributing](#contributing)
 - [Author](#author)
 - [License](#license)
@@ -24,6 +24,62 @@
 
 **Obesity Predictor** is a machine learning web application that forecasts future obesity levels based on user lifestyle inputs. Built with modern MLOps practices, the project is designed for scalability and continuous improvement. This repository documents the current implementation along with a roadmap for future enhancements using additional industry-standard tools.
 
+
+## Installation & Setup
+
+### Prerequisites
+- **Python 3.7+**
+- **Docker**
+- **AWS Account** (for AWS S3, Glue, RDS, ECR, EC2)
+- **Git**
+
+### Setup Steps
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/VISHWAS304/Obesity-Predictor.git
+   cd Obesity-Predictor
+
+
+## Running the Application
+
+### Using Streamlit (Local)
+
+1. **Start the Application:**
+   ```bash
+   streamlit run app.py
+```
+  Access the App:
+Open your browser at http://localhost:8501.
+
+Using Docker
+Build the Docker Image:
+
+bash
+Copy
+docker build -t obesity-predictor .
+Run the Docker Container:
+
+bash
+Copy
+docker run -p 8501:8501 obesity-predictor
+Access the App:
+Open your browser at http://localhost:8501.
+
+
+
+
+
+
+## Roadmap
+
+- **Enhanced Models:** Integrate deep learning with TensorFlow or PyTorch.
+- **Experiment Tracking:** Implement MLflow and Weights & Biases for robust tracking.
+- **CI/CD Automation:** Develop pipelines using GitHub Actions or Jenkins.
+- **Comprehensive Monitoring:** Deploy ELK Stack and Prometheus-Grafana for real-time insights.
+- **Workflow Automation:** Use Apache Airflow and Terraform for orchestration and Infrastructure as Code (IaC).
+
+---
 ---
 
 ## Tech Stack & Implementation
@@ -76,90 +132,33 @@
 
 ---
 
-## Installation & Setup
+## Contributing
 
-### Prerequisites
-- **Python 3.7+**
-- **Docker**
-- **AWS Account** (for AWS S3, Glue, RDS, ECR, EC2)
-- **Git**
-
-### Setup Steps
-
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/VISHWAS304/Obesity-Predictor.git
-   cd Obesity-Predictor
-
-reate & Activate a Virtual Environment
-Unix/MacOS:
-bash
-Copy
-python3 -m venv venv
-source venv/bin/activate
-Windows:
-bash
-Copy
-python -m venv venv
-venv\Scripts\activate
-Install Dependencies
-bash
-Copy
-pip install -r requirements.txt
-Configure AWS Credentials
-Set up your AWS CLI credentials by running:
-
-```bash
-aws configure
-```
-
-Running the Application Using Streamlit (Local)
-Start the Application:
-```bash
-streamlit run app.py
-```
-
-Access the App:
-
-Open your browser at http://localhost:8501.
-
-Using Docker
-Build the Docker Image:
-```bash
-docker build -t obesity-predictor
-```
-Run the Docker Container:
-
-```bash
-docker run -p 8501:8501 obesity-predictor
-```
-Access the App:
-Open your browser at http://localhost:8501.
-
-**Roadmap**
-Enhanced Models: Integrate deep learning with TensorFlow or PyTorch.
-Experiment Tracking: Implement MLflow and Weights & Biases for robust tracking.
-CI/CD Automation: Develop pipelines using GitHub Actions or Jenkins.
-Comprehensive Monitoring: Deploy ELK Stack and Prometheus-Grafana for real-time insights.
-Workflow Automation: Use Apache Airflow and Terraform for orchestration and Infrastructure as Code (IaC).
-
-
-**Contributing**
 Contributions, suggestions, and improvements are welcome. To contribute:
 
-**Fork the repository.**
-Create a new branch for your feature/bug fix.
-Commit and push your changes.
-Open a pull request with detailed explanations.
+1. **Fork the repository.**
+2. Create a new branch for your feature/bug fix.
+3. Commit and push your changes.
+4. Open a pull request with detailed explanations.
+
 For major changes, please open an issue to discuss before proceeding.
 
-**Author**
-Vishwas Bhushan Basuru
-Email: vishwasbhushanb@gmail.com
-GitHub: VISHWAS304
+---
 
-**License**
-This project is licensed under the terms of the LICENSE file.
+## Author
 
-**Support**
-If you find this project useful, please star the repository and share it with others!
+**Vishwas Bhushan Basuru**  
+- Email: vishwasbhushanb@gmail.com  
+- GitHub: [VISHWAS304](https://github.com/VISHWAS304)
+
+---
+
+## License
+
+This project is licensed under the terms of the [LICENSE](LICENSE) file.
+
+---
+
+## Support
+
+If you find this project useful, please ⭐️ **star** the repository and share it with others!
