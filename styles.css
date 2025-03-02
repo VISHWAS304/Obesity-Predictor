@@ -1,0 +1,199 @@
+/* Reduce the default top padding */
+.block-container {
+    padding-top: 1rem !important;
+}
+
+/* Base styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* Header styling */
+.title {
+    font-size: 38px;
+    font-weight: 700;
+    color: #003366;
+    text-align: center;
+    margin-bottom: 0;
+}
+.subtext {
+    font-size: 20px;
+    text-align: center;
+    color: #555;
+    margin-top: 0;
+}
+
+/* Divider styling */
+hr {
+    border: none;
+    border-top: 2px solid #e0e0e0;
+    margin: 1.5rem 0;
+}
+
+/* Button styling */
+.stButton > button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1d72b8, #1e90ff);
+    border: none;
+    color: white;
+    transition: background 0.3s ease;
+}
+.stButton > button:hover {
+    background: linear-gradient(135deg, #1e90ff, #1d72b8);
+}
+
+/* Card styling for grouping inputs */
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 15px;
+}
+
+/* Sidebar styling */
+[data-testid="stSidebar"] {
+    min-width: 300px !important;
+    max-width: 300px !important;
+    padding-top: 0.5rem !important; /* Adjust value as needed */
+}
+
+/* Form submit button (centered) */
+div[data-testid="stForm"] div.stButton > button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80% !important;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1d72b8, #1e90ff);
+    border: none;
+    color: white;
+    transition: background 0.3s ease;
+}
+div[data-testid="stForm"] div.stButton > button:hover {
+    background: linear-gradient(135deg, #1e90ff, #1d72b8);
+}
+
+/* Footer styling (merged) */
+.footer {
+    text-align: center;
+    font-size: 18px;
+    color: #003366;
+    margin-top: 30px;
+    padding: 10px 0;
+}
+
+/* Header container */
+.header-container {
+    text-align: center;
+    margin-top: -20px;
+}
+
+/* Card Default Style */
+.card-default {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Underweight Card */
+.card-underweight {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    border: 1px solid #4dd0e1;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+.card-underweight h2 {
+    color: #00796b;
+}
+
+/* Normal Weight Card */
+.card-normal {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border: 1px solid #81c784;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+.card-normal h2 {
+    color: #388e3c;
+}
+
+/* Overweight Card */
+.card-overweight {
+    background: linear-gradient(135deg, #fffde7, #fff9c4);
+    border: 1px solid #fff176;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+.card-overweight h2 {
+    color: #fbc02d;
+}
+
+/* Obesity Type I Card */
+.card-obesity-type1 {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border: 1px solid #ffb74d;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+.card-obesity-type1 h2 {
+    color: #f57c00;
+}
+
+/* Obesity Type II Card */
+.card-obesity-type2 {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    border: 1px solid #e57373;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+.card-obesity-type2 h2 {
+    color: #d32f2f;
+}
+
+/* Obesity Type III Card */
+.card-obesity-type3 {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    border: 1px solid #e53935;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+.card-obesity-type3 h2 {
+    color: #b71c1c;
+}
+
+/* Card Text Styling */
+.card-text {
+    font-size: 14px;
+    color: #777;
+    margin-top: 10px;
+    font-style: italic;
+}
