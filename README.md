@@ -1,6 +1,6 @@
 
 DETAILED README COMIN SOON.......
 
-PROJECT STRUCTURE
-==================
+PROJECT FILES STRUCTURE
+=======================
 ![Description of the image](./images/project_structure.png)
